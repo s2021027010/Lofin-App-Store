@@ -1,0 +1,51 @@
+
+.btnLike{
+    margin-top: 1rem;
+    display: inline-block;
+    padding:.8rem 3rem;
+    font-size: 1.7rem;
+    border-radius: .5rem;
+    border:.2rem solid var(--black);
+    color:var(--black);
+    cursor: pointer;
+    background: none;
+}
+
+.btnLike:hover{
+    background: rgb(0, 173, 23);
+    color:#fff;
+}
+
+
+
+.headbtn{
+    border:.1rem solid var(--black);
+    border-radius: 2rem;
+    padding:.8rem 3rem;
+    border-color: rgb(0, 0, 0);
+    color: #fff;
+    color:black;
+  
+}
+.headbtn:hover{
+    background: rgb(0, 173, 23);
+    color:#fff;
+}
+
+
+
+
+.btnType{
+    background-color:  transparent; 
+    color: rgb(3, 3, 3); 
+    border:.1rem solid var(--black); 
+    border-radius: 1.5rem; 
+    padding:.1rem 1.7rem;
+    border-color: rgb(77, 116, 7);
+  
+  }
+.btnType:hover{
+    background: rgb(0, 173, 23);
+    color:rgb(0, 0, 0);
+}
+
