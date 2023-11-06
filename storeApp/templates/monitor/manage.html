@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- /home.html  29 Aug 2022 10:04:03 GMT -->
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+    <title>Lofin App Store -manager</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+      <!-- Favicon -->
+      {% load static %}
+      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+      <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+      <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+      <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+
+      <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+  
+   
+    
+
+
+</head>
+<!-- <h2 class="title mb-4">  </h2>  -->
+
+<body>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    
+<!-- ----------------------------------------------- Header Era -------------------------------- -->
+{% include "layout-main/header.html" %} 
+<!-- ----------------------------------------------- Home Era -------------------------------- -->
+
+<div class="bg-image pt-md-1 pb-md-1 pt-lg-1" >
+    <div class="container" bg-image="{% static 'images/login-bg1.jpg' %}">
+        <h1 class="heading">Online<span> Account  </span></h1>
+    {% csrf_token %}
+
+    <div class="border-color" style="background-color: gainsboro;">
+        <div class="container" align="center">
+          <div class="row">
+              <div class="col-lg-12">
+            <form class=""  action="{% url 'create' %}" method="POST" text-center>
+                {% csrf_token %}
+               
+                  <div class="col-md-3">
+                    <label text-left>Email *</label>
+                   
+                      <input type="text"  class="form-control" id="input_email"   name="input_email" placeholder="Email your Account"  required>
+                     
+                    </div>
+                    <div class="col-md-3">
+                      <label text-left>Type *</label>
+                     
+                      <div name="input_type" style=" padding-top: 10px">
+                        <select id="options"   name="input_type"  class="selectdata form-control custom-select" required>
+                            <option  value="" disabled selected>Select an option</option>
+                            <option   name="input_type" value="express">Express</option>
+                            <option  name="input_type"" value="custom">Custom</option>
+                            <option   name="input_type" value="standard">Standard</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label text-left>Country *</label>
+                       
+                        <div name="input_country" style=" padding-top: 10px">
+                          <select id="options"   name="input_country"  class="selectdata form-control custom-select" required>
+                              <option  value="" disabled selected>Select an option</option>
+                              <option   name="input_country" value="us">United State</option>
+                              <option  name="input_country" value="uk">United Kingdom</option>
+                              <option   name="input_country" value="inr">India</option>
+                            </select>
+                        </div>
+                      </div>
+                    
+                <button type="submit" id="checkout-button" class="btnLike" value="Account"  ><span>Create Account</span></button>
+        
+                </form>
+        
+        </div></div></div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- ----------------------------------------------- Footer Era -------------------------------- -->
+{% include "layout-main/footer.html" %} 
+
+
+        {% endif %}
+
+        
+<!-- /register.html  22 Aug 2022 10:04:03 GMT -->
+
+</body>
+</html>

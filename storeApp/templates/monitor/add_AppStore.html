@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- /register.html  29 Aug 2022 10:04:03 GMT -->
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+    <title>Lofin App Store -add_AppStore</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+      <!-- Favicon -->
+      {% load static %}
+      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+      <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+      <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+      <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+
+      <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+  
+   
+
+
+
+
+    <!-- Favicon -->
+    {% load static %}
+   
+    <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+    <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+    <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+    <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+
+
+
+    <!-- Plugins CSS File -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profilebootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pbootstrap.min.css' %}"  rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrapSelect.min.css' %}">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<!-- ----------------------------------------------- update_Profile Era-------------------------------- -->
+
+
+<div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
+
+
+        <div class="container emp-profile">
+            <form action="add_AppStore/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img  src="{{BASE_DIR}}/media/media/AppsImage/AppsIcon.jfif" id="input_imageP"  style="display: true; width: 250px; height: 200px" alt="Profile Picture" />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div hidden="true" class="file btn btn-lg btn-primary"  style="display: true; width: 50px; height: 50px">
+                                        
+                                        <input hidden="true" type="file" id="input_imageApp"  name="input_imageApp" onchange="loadFileImage()" >
+                                        
+                                    </div>
+                                    <div class="file btn btn-lg btn-primary"  style="display: true; width: 50px; height: 50px">
+                                        <p><label for="file"  style="cursor: pointer; color: aliceblue;">Upload Photo</p>
+                                        <input type="file" id="input_imageApp"  accept="image/*"  id="file"  onchange="loadFile(event)"  value="media/AppsImage/AppsIcon.jfif" name="input_imageApp"  required/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script type="text/javascript">
+                        function loadFile(event){
+                            var upl = document.getElementById("input_imageApp");
+                            var max = 1*1024*1024;
+
+                                if(upl.files[0].size >= max)
+                                {
+                                alert("File too big! max(1Mb)");
+                                upl.value = "";
+                            }
+                            var input_link = document.getElementById("input_imageApp").value;
+                            var idxDot = input_link.lastIndexOf(".") + 1;
+                            var extFile = input_link.substr(idxDot, input_link.length).toLowerCase();
+                            if (extFile=="jpg"  || extFile=="png" || extFile=="jpng" || extFile=="jpeg"){
+                                document.getElementById("input_imageApp").value="Computer";
+                            }else{
+                                alert("Only png/jpg/jpng and jpeg files are allowed!!");
+                                document.getElementById("input_imageApp").value="";
+                            }   
+                        }
+                    </script>
+
+                    
+                </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="edithome" role="tabpanel" aria-labelledby="edithome-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Id</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                {% for profile in myProfile %}
+                                                    {% if forloop.first %}
+                                                <p><input type="username"  value="{{profile.db_username}}" class="form-control" readonly="true"  id="username" name="username"  aria-describedby="emailHelp" placeholder="abc123"  required></p>
+                                                {% endif%}
+                                                {% endfor %}  
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>App Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="text" class="form-control" id="input_AppName" name="input_AppName" placeholder="App Name" value="N/A" required> </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Category</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div name="input_Category" style=" padding-top: 10px">
+                                                    <select id="options"  name="input_Category"  class="selectdata form-control custom-select" required>
+                                                        <option  value="" disabled selected>Select an option</option>
+                                                        <option  name="input_Category" value="Game">Game</option>
+                                                        <option  name="input_Category" value="Sport">Sport</option>
+                                                        <option  name="input_Category" value="Social">Social</option>
+                                                        <option  name="input_Category" value="Play">Play</option>
+                                                        <option  name="input_Category" value="Communication">Communication</option>
+                                                        <option  name="input_Category" value="Shop">Shop</option>
+                                                        <option  name="input_Category" value="Children">Children</option>
+                                                        <option  name="input_Category" value="Device">Device</option>
+                                                        <option  name="input_Category" value="Live">Live</option>
+                                                        <option  name="input_Category" value="Popular">Popular</option>
+                                                        <option  name="input_Category" value="Material">Material</option>
+                                                        <option  name="input_Category" value="Entertainment">Entertainment</option>
+                                                        <option  name="input_Category" value="Top">Top</option>
+                                                        <option  name="input_Category" value="Other">Other</option>
+                                                    </select>
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Type</label>
+                                            </div>
+                                            <div class="col-md-6" name="input_type">
+                                                <div name="input_type"  style=" padding-top: 10px">
+                                                    <select id="choices"  name="input_type"   class="selectdata form-control custom-select"  required>
+                                                        <option value="" name="input_type" disabled selected>Please select an option</option>
+                                                      </select>
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label hidden>Like</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="text" hidden readonly value="Like" placeholder="Like" class="form-control" id="input_likeApp" name="input_likeApp" required>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>App Select Publish</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                               <!--  <p><input type="file"  accept = ".exe , .apk"  accept="Application"  title="App Select to Share"  value="N/A" class="form-control" id="input_link" name="input_link" placeholder="Link" required>
+                                                </p> 
+                                                        -->
+                                                <p><input name="input_link"  type="file"  title="App Select to Share"  value="N/A" class="form-control" id="input_link" accept=".exe,.apk,.apkx" onclick="display('*')" onchange="validateFileType()"   placeholder="Link" required/>
+                                                <input type="text" hidden style="position: absolute; left: 38rem; width: 160px; top: 0rem;" readonly="true" class="form-control" id="input_link_type" name="input_link_type" placeholder="Link Type" value="" onclick="display('*')" onchange="validateFileType()" required> 
+                                                </p>
+                                                <script type="text/javascript">
+                                                    function validateFileType(){
+                                                        var input_link = document.getElementById("input_link").value;
+                                                        var idxDot = input_link.lastIndexOf(".") + 1;
+                                                        var extFile = input_link.substr(idxDot, input_link.length).toLowerCase();
+                                                        if (extFile=="exe"){
+                                                            document.getElementById("input_link_type").value="Computer";
+                                                        }
+                                                        else if (extFile=="apk" || extFile=="xapk" || extFile=="apkx"){
+                                                            document.getElementById("input_link_type").value="Mobile";
+                                                        }else{
+                                                            alert("Only exe/apk xapk and apkx files are allowed!");
+                                                            document.getElementById("input_link").value="";
+                                                        }   
+                                                    }
+                                                </script>
+
+                                            </div>
+                                        </div>
+
+
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Select Price Method</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div name="input_PM" style=" padding-top: 10px">
+                                                    <select id="opts"  name="input_PM"  class="selectdata form-control custom-select" required>
+                                                        <option  value="" disabled selected>Select an option</option>
+                                                        <option  name="input_PM" value="Free">Free</option>
+                                                        <option  name="input_PM" value="Amount">Amount</option>
+                                                    </select>
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            
+                                            <div class="col-md-6" name="input_price">
+                                                <div name="input_price"  style=" padding-top: 10px">
+                                                    <select id="choose"  name="input_price"   style="position: absolute; left: 75rem; width: 210px; top: -6rem;"  class="selectdata form-control custom-select"  required>
+                                                        <label>$</label><option value=""  name="input_price" disabled selected>Please select an option</option>
+                                                      </select>
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Country</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="text" value="N/A" class="form-control" id="input_country" name="input_country" placeholder="Country" required>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Describe</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><textarea aria-valuemax="800" type="text" value="N/A" style="height: 130px;" class="form-control" id="input_describe" name="input_describe" placeholder="App Describe " ></textarea>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!--
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Date Created </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="date" value="date" class="form-control" id="input_create_Date" name="input_create_Date">
+                                                </p>
+                                            </div>
+                                        </div>
+                                        -->
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Image List View</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="file" onchange="validateFileType1()"  accept="image/*"  value="N/A" class="form-control" title="Image List View 1st" id="input_images1" name="input_images1" multiple required>
+                                                </p>
+                                                </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="file"  onchange="validateFileType2()"   accept="image/*"  value="N/A" class="form-control"  title="Image List View 2nd"  id="input_images2" name="input_images2" multiple required>
+                                                </p>
+                                                </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="file"   onchange="validateFileType3()"  style="position: absolute; left: 38rem; width: 310px; top: -12rem;"   accept="image/*" value="N/A" class="form-control"  id="input_images3"  title="Image List View 3rd" name="input_images3" multiple required>
+                                                </p>
+                                                </div>
+                                        </div>
+
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="file"  onchange="validateFileType4()"   style="position: absolute; left: 38rem; width: 310px; top: -9rem;"   accept="image/*" value="N/A" class="form-control"  id="input_images4"  title="Image List View 4th" name="input_images4" multiple required>
+                                                </p>
+                                                </div>
+
+                                        </div>
+                                        <script type="text/javascript">
+                                           
+                                            function validateFileType1(){
+                                               var upl = document.getElementById("input_images1");
+                                                var max = 1*1024*1024;
+
+                                                    if(upl.files[0].size >= max)
+                                                    {
+                                                    alert("File too big!  max(1Mb)");
+                                                    upl.value = "";
+                                                }
+                                                var input_link = document.getElementById("input_images1").value;
+                                                var idxDot = input_link.lastIndexOf(".") + 1;
+                                                var extFile = input_link.substr(idxDot, input_link.length).toLowerCase();
+                                            
+                                                if (extFile=="jpg"  || extFile=="png" || extFile=="jpng" || extFile=="jpeg"){
+                                                    document.getElementById("input_images1").value="Computer";
+                                                }else{
+                                                    alert("Only png/jpg/jpng and jpeg files are allowed!");
+                                                    document.getElementById("input_images1").value="";
+                                                }   
+                                            }
+                                        </script>
+                                        <script type="text/javascript">
+                                            function validateFileType2(){
+                                                var upl = document.getElementById("input_images2");
+                                                var max = 1*1024*1024;
+
+                                                    if(upl.files[0].size >= max)
+                                                    {
+                                                    alert("File too big! max(1Mb)");
+                                                    upl.value = "";
+                                                }
+                                                var input_link = document.getElementById("input_images2").value;
+                                                var idxDot = input_link.lastIndexOf(".") + 1;
+                                                var extFile = input_link.substr(idxDot, input_link.length).toLowerCase();
+                                                if (extFile=="jpg"  || extFile=="png" || extFile=="jpng" || extFile=="jpeg"){
+                                                    document.getElementById("input_images2").value="Computer";
+                                                }else{
+                                                    alert("Only png/jpg/jpng and jpeg files are allowed!");
+                                                    document.getElementById("input_images2").value="";
+                                                }   
+                                            }
+                                        </script>
+                                        <script type="text/javascript">
+                                            function validateFileType3(){
+                                                var upl = document.getElementById("input_images3");
+                                                var max = 1*1024*1024;
+
+                                                    if(upl.files[0].size >= max)
+                                                    {
+                                                    alert("File too big!  max(1Mb)");
+                                                    upl.value = "";
+                                                }
+                                                var input_link = document.getElementById("input_images3").value;
+                                                var idxDot = input_link.lastIndexOf(".") + 1;
+                                                var extFile = input_link.substr(idxDot, input_link.length).toLowerCase();
+                                                if (extFile=="jpg"  || extFile=="png" || extFile=="jpng" || extFile=="jpeg"){
+                                                    document.getElementById("input_images3").value="Computer";
+                                                }else{
+                                                    alert("Only png/jpg/jpng and jpeg files are allowed!!");
+                                                    document.getElementById("input_images3").value="";
+                                                }   
+                                            }
+                                        </script>
+                                        <script type="text/javascript">
+                                            function validateFileType4(){ 
+                                                var upl = document.getElementById("input_images4");
+                                                var max = 1*1024*1024;
+
+                                                    if(upl.files[0].size >= max)
+                                                    {
+                                                    alert("File too big!  max(1Mb)");
+                                                    upl.value = "";
+                                                }
+                                                var input_link = document.getElementById("input_images4").value;
+                                                var idxDot = input_link.lastIndexOf(".") + 1;
+                                                var extFile = input_link.substr(idxDot, input_link.length).toLowerCase();
+                                                if (extFile=="jpg"  || extFile=="png" || extFile=="jpng" || extFile=="jpeg"){
+                                                    document.getElementById("input_images4").value="Computer";
+                                                }else{
+                                                    alert("Only png/jpg/jpng and jpeg files are allowed!!");
+                                                    document.getElementById("input_images4").value="";
+                                                }   
+                                            }
+                                        </script>
+
+
+
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-outline-primary-2 text-center">
+                                                    <span>Share</span>
+                                                    <i class="icon-long-arrow-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                            
+                           
+                            
+                        </div>
+                    </div> 
+                </div>
+
+                
+                    
+                
+            </form>           
+        </div>
+
+</div><!-- End. Edit -->
+</form>
+
+<!-- ----------------------------------------------- Main Js File Era-------------------------------- -->
+
+{% load static %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.hoverIntent.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/superfish.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/querySelect.min.js' %}"></script>
+    <!-- Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/profilebootstrap.min.js' %}"></script>
+    <script src="{% static 'js/profilejquery.min.js' %}"></script>
+    <script src="{% static 'js/selectOption.js' %}"></script>
+    <script src="{% static 'js/selectOptionPrice.js' %}"></script>
+    <script src="{% static 'js/imgShow.js' %}"></script>
+
+
+
+
+<!-- /login.html  22 Aug 2022 10:04:03 GMT -->
+
+</body>
+</html>

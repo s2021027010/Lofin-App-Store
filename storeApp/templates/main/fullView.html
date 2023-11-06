@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lofin App Store -fullView</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+
+    
+    <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+ 
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'product/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nouislider.css' %}">
+</head>
+</body>
+
+
+
+{% include "layout-main/header.html" %} 
+    <div class="header-left" style="position: relative; left: -75px;">
+    
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container">
+                    
+
+                    
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+            {% for app in myAppStore_All %}
+            <div class="page-content">
+                <div class="container">
+                    <div class="product-details-top">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="product-gallery product-gallery-vertical">
+                                    <div class="row">
+                                        <figure class="product-main-image">
+                                            <img id="product-zoom" src="{{BASE_DIR}}/media/{{app.db_photoApp}}" data-zoom-image="{{BASE_DIR}}/media/{{app.db_photoApp}}" alt="product image">
+
+                                            <a href="{{BASE_DIR}}/media/{{app.db_photoApp}}" id="btn-product-gallery" class="btn-product-gallery">
+                                                <i class="icon-arrows"></i>
+                                            </a>
+                                        </figure><!-- End .product-main-image -->
+
+                                        <div id="product-zoom-gallery" class="product-image-gallery">
+
+                                            <a class="product-gallery-item active" href="{{BASE_DIR}}/media/{{app.db_images_list1}}" data-image="{{BASE_DIR}}/media/{{app.db_images_list1}}" data-zoom-image="{{BASE_DIR}}/media/{{app.db_images_list1}}">
+                                                <img src="{{BASE_DIR}}/media/{{app.db_images_list1}}" alt="product side">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="{{BASE_DIR}}/media/{{app.db_images_list2}}" data-image="{{BASE_DIR}}/media/{{app.db_images_list2}}" data-zoom-image="{{BASE_DIR}}/media/{{app.db_images_list2}}">
+                                                <img src="{{BASE_DIR}}/media/{{app.db_images_list2}}" alt="product cross">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="{{BASE_DIR}}/media/{{app.db_images_list3}}" data-image="{{BASE_DIR}}/media/{{app.db_images_list3}}" data-zoom-image="{{BASE_DIR}}/media/{{app.db_images_list3}}">
+                                                <img src="{{BASE_DIR}}/media/{{app.db_images_list3}}" alt="product with model">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="{{BASE_DIR}}/media/{{app.db_images_list4}}" data-image="{{BASE_DIR}}/media/{{app.db_images_list4}}" data-zoom-image="{{BASE_DIR}}/media/{{app.db_images_list4}}">
+                                                <img src="{{BASE_DIR}}/media/{{app.db_images_list4}}" alt="product back">
+                                            </a>
+
+                                        </div><!-- End .product-image-gallery -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .product-gallery -->
+                            </div><!-- End .col-md-6 -->
+
+                            <div class="col-md-6">
+                                <div class="product-details">
+                                    {% block content %}
+                                    {% if messages %}
+
+            					{% for message in messages %}
+                                
+            						<div class="alert alert-info" >
+                							{{ message }}
+            						</div>
+                                    
+            					{% endfor %}
+      
+        						{% endif %}
+
+                                {% endblock %}
+                                    <h1 class="product-title"> <b>{{app.db_AppName}}</b> </h1><!-- End .product-title -->
+
+                                   
+
+                                    <div class="product-price">
+                                        {{app.db_username}}
+                                    </div><!-- End .product-price -->
+
+                                    <div class="product-price">
+                                        Price :   $
+                                    
+                                        <a>
+                                            {{app.db_price}}
+                                        </a>
+                                    </div><!-- End .product-price -->
+                                    <div class="details-filter">
+                                        {% for x in myAppStore %}
+                                        {% if x.db_AppName == app.db_AppName and x.db_id_App == app.db_id_App and x.db_username == app.db_username %}
+                                        <label>
+                                        <form class=""  action="{% url 'like' %}" method="POST">
+                                           <b>
+                                            {% csrf_token %}
+                                                <input type="hidden" name="post_id" value="{{x.db_id_App}}">
+                                                <input type="hidden" name="post_AppName" value="{{x.db_AppName}}">
+                                                {% for post in myProfile %}
+                                                {% if forloop.first %}
+                                                <input type="hidden" name="post_username" value="{{post.db_username}}">
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% if user not in x.db_like.all %}
+                        
+                                                    {% if x.db_like.all.count >= 0 and x.db_like.all.count <= 999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"   alt="Like" title="Like" class="viewBox icon-heart"><span class="btn-expandable">{{x.db_like.all.count|get_digit:""}} Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 1000 and app.db_like.all.count <= 9999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"    alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"4"}}.{{x.db_like.all.count|get_digit:"3"}}{{x.db_like.all.count|get_digit:"2"}} K Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 10000 and app.db_like.all.count <= 99999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"    alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"5"}}{{x.db_like.all.count|get_digit:"4"}}.{{x.db_like.all.count|get_digit:"3"}} K Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 100000 and app.db_like.all.count <= 999999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"    alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"6"}}{{x.db_like.all.count|get_digit:"5"}}{{x.db_like.all.count|get_digit:"4"}} K Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 1000000 and app.db_like.all.count <= 9999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"   alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"7"}}.{{x.db_like.all.count|get_digit:"6"}}{{x.db_like.all.count|get_digit:"5"}} M Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 10000000 and app.db_like.all.count <= 99999999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"    alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"8"}}{{x.db_like.all.count|get_digit:"7"}}.{{x.db_like.all.count|get_digit:"6"}} M Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 100000000 and app.db_like.all.count <= 999999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"   alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"9"}}{{x.db_like.all.count|get_digit:"8"}}{{x.db_like.all.count|get_digit:"7"}} M Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 1000000000 and app.db_like.all.count <= 9999999999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"    alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"10"}}.{{x.db_like.all.count|get_digit:"9"}}{{x.db_like.all.count|get_digit:"8"}} B Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 10000000000 and app.db_like.all.count <= 99999999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"   alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"11"}}{{x.db_like.all.count|get_digit:"10"}}.{{x.db_like.all.count|get_digit:"9"}} B Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 100000000000 and app.db_like.all.count <= 999999999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"   alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"12"}}{{x.db_like.all.count|get_digit:"11"}}{{x.db_like.all.count|get_digit:"10"}} B Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 1000000000000 and app.db_like.all.count <= 9999999999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"   alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"13"}}.{{app.db_like.all.count|get_digit:"12"}}{{app.db_like.all.count|get_digit:"11"}} T Likes</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 10000000000000 and app.db_like.all.count <= 99999999999999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"    alt="Like" title="Like" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"14"}}{{x.db_like.all.count|get_digit:"13"}}.{{x.db_like.all.count|get_digit:"12"}} T Likes</span></button>
+                                                
+                                                    {% endif %}
+                                                   
+                                                    
+            
+            
+            
+                                                {% else %}
+                                                    
+                                                    {% if x.db_like.all.count >= 0 and x.db_like.all.count <= 999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"   alt="Unlike" title="Now You can Unlike" class="viewBox icon-heart"><span class="btn-expandable">{{x.db_like.all.count|get_digit:""}} Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 1000 and app.db_like.all.count <= 9999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"  alt="Unlike" title="Now You can Unlike" class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"4"}}.{{x.db_like.all.count|get_digit:"3"}}{{x.db_like.all.count|get_digit:"2"}} K Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 10000 and app.db_like.all.count <= 99999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"      alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"5"}}{{x.db_like.all.count|get_digit:"4"}}.{{x.db_like.all.count|get_digit:"3"}} K Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 100000 and app.db_like.all.count <= 999999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"      alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"6"}}{{x.db_like.all.count|get_digit:"5"}}{{x.db_like.all.count|get_digit:"4"}} K Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 1000000 and app.db_like.all.count <= 9999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"     alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"7"}}.{{app.db_like.all.count|get_digit:"6"}}{{app.db_like.all.count|get_digit:"5"}} M Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 10000000 and app.db_like.all.count <= 99999999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"      alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"8"}}{{x.db_like.all.count|get_digit:"7"}}.{{x.db_like.all.count|get_digit:"6"}} M Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 100000000 and app.db_like.all.count <= 999999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"     alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"9"}}{{x.db_like.all.count|get_digit:"8"}}{{x.db_like.all.count|get_digit:"7"}} M</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 1000000000 and app.db_like.all.count <= 9999999999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"   alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"10"}}.{{x.db_like.all.count|get_digit:"9"}}{{x.db_like.all.count|get_digit:"8"}} B Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 10000000000 and app.db_like.all.count <= 99999999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"    alt="Unlike" title="Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"11"}}{{x.db_like.all.count|get_digit:"10"}}.{{x.db_like.all.count|get_digit:"9"}} B Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 100000000000 and app.db_like.all.count <= 999999999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"    alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"12"}}{{x.db_like.all.count|get_digit:"11"}}{{x.db_like.all.count|get_digit:"10"}} B Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 1000000000000 and app.db_like.all.count <= 9999999999999 %}
+                                                    
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"     alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"13"}}.{{x.db_like.all.count|get_digit:"12"}}{{x.db_like.all.count|get_digit:"11"}} T Unlike</span></button>
+                                                
+                                                    {% endif %}
+            
+                                                    {% if app.db_like.all.count >= 10000000000000 and app.db_like.all.count <= 99999999999999 %}
+                                                    
+                                                    <button type="submit"   value="{{app.db_id_App}}" name="post_id"    alt="Unlike" title="Now You can Unlike"  class="btnLike icon-heart"><span class="price   btn-expandable">{{x.db_like.all.count|get_digit:"14"}}{{x.db_like.all.count|get_digit:"13"}}.{{x.db_like.all.count|get_digit:"12"}} T Unlike</span></button>
+                                                
+                                                    {% endif %}
+                                                
+                                                {% endif %}
+                                            </b>
+                                            </form></label>
+                                            {% endif %}
+                                            {% endfor %}
+
+
+                                            {% for x in myAppStore %}
+                                        {% if x.db_AppName == app.db_AppName and x.db_id_App == app.db_id_App and x.db_username == app.db_username %}
+                                                <label class="viewBox" > <span><b> Size :</b> {{x.db_link.size|filesizeformat}} </span></label>
+                                            {% endif %}
+                                            {% endfor %}
+                                        
+                                            
+                                            <label class="viewBox"><span><b>Type :</b>  {{app.db_type}}  </span></label>
+                                        
+                                            <label class="viewBox"><span><b>Cateogry :</b> {{ app.db_Category }}</span> </label>
+                                        
+                                            <!-- End .product-details-quantity -->
+                                    </div><!-- End .details-filter-row -->
+
+                                    <div class="details-filter">
+                                        <label ><b>Country :</b></label>
+                                        
+                                            <label> {{ app.db_country }}</label>
+                                            
+                                    </div><!-- End .select-custom -->
+
+                                    <div class="details-filter">
+                                        <label><b>Created Date :</b></label>
+                                        
+                                            <label> {{app.db_create_Date}}</label>
+                                            
+                                    </div><!-- End .select-custom -->
+                                  
+
+                                   
+                                    <div class="product-details-action">
+                                  
+                                        {% for post in myProfile %} 
+                                       
+                                    {% if app.db_price == 0 or check == True %}
+                                        
+                                <a href="{{BASE_DIR}}/media/{{app.db_link}}" class="btn-product btn-cart"><span>Install</span></a>  
+                                    {% else  %}
+                                            <button type="button" id="checkout-button" class="btn-product btn-cart" value="Pay Now - (${{app.db_price}})"  ><span>Pay Now - (${{app.db_price}})</span></button>
+                                                        
+                                             
+                                
+                                  {% endif %}
+                                              
+                                        {% endfor %}
+                                        <script type="text/javascript">
+                                                    // Create an instance of the Stripe object with your publishable API key
+                                                    //var stripe = Stripe('pk_test_51MDkyQDUzRcdw0ai84xqLsFylb0EVMCnP4Qv9y3NeW219gwQifI696lrqejOacOFEVO5bbIa3Zxd9bi5k7ON0sc200KlqO6jNm');
+                                                    var checkoutButton = document.getElementById('checkout-button');
+                                                   
+                                                    checkoutButton.addEventListener('click', function() {
+                                                    // Create a new Checkout Session using the server-side endpoint you
+                                                    // created in step 3.
+                                                    fetch('/create-session-checkout/{{app.db_id_App}}/{{app.db_AppName}}/{{app.db_price}}', {
+                                                    method: 'POST',
+                                                    
+                                                    })
+                                                    .then(function(response) {
+                                                    return response.json();
+                                                    })
+                                                    .then(function(session) {
+                                                    return stripe.redirectToCheckout({ sessionId: session.id });
+                                                    })
+                                                    .then(function(result) {
+                                                    // customer using `error.message`.
+                                                    if (result.error) {
+                                                    alert(result.error.message);
+                                                    }
+                                                    })
+                                                    .catch(function(error) {
+                                                    console.error('Error:', error);
+                                                    });
+                                                    });
+                                                    </script>
+                                        <div class="details-action-wrapper">
+
+                                           
+                                            <form class=""  action="{% url 'wishlist' %}" method="POST" >
+                                                {% csrf_token %}
+                                                    <input type="hidden" name="post_id" value="{{app.db_id_App}}">
+                                                    <input type="hidden" name="post_AppName" value="{{app.db_AppName}}">
+                                                    <input type="hidden" name="post_type" value="{{app.db_type}}">
+                                                    <input type="hidden" name="post_Category" value="{{app.db_Category}}">
+                                                    {% for post in myProfile %}
+                                                    {% if forloop.first %}
+                                                    <input type="hidden" name="post_username" value="{{post.db_username}}">
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    {% if user not in app.db_wishlist.all %}
+                                                        
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id"    style="border: 0rem solid var(--white);"   alt="Unwishlist" title="Unwishlist"  class="btn-product btn-wishlist"><span>cut Wishlist</span></button>
+                                                    {% else %}
+                                                    <button type="submit"    value="{{app.db_id_App}}" name="post_id" style="border: 0rem solid var(--white);"  alt="Wishlist" title="Wishlist" class="btn-product btn-wishlist"><span>add to Wishlist</span></button>
+                                                        
+                                                    {% endif %}
+                                                
+                                                </form>
+                                            </div><!-- End .details-action-wrapper -->
+                                    </div><!-- End .product-details-action -->
+
+                                    <div class="product-details-footer">
+                                       
+                                    </div><!-- End .product-details-footer -->
+                                </div><!-- End .product-details -->
+                            </div><!-- End .col-md-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .product-details-top -->
+                    <div class="border-color" style="background-color: gainsboro;">
+                    <div class="product-details-tab">
+                        <ul class="nav nav-pills justify-content-center" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Comments ( {% for x in myAppStore %} {% for comment in count_comment %}{% if x.db_id_App == app.db_id_App %}{% if forloop.last %}{{forloop.counter}}{% endif %} {% endif %} {% endfor %} {% endfor %})</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-info-link" data-toggle="tab" href="#product-info-tab" role="tab" aria-controls="product-info-tab" aria-selected="false">Additional information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                                <div class="product-desc-content">
+                                    <h3>Application Description</h3>
+                                    <p>{{app.db_Describe}} </p>
+                                    
+
+                                </div><!-- End .product-desc-content -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
+                                
+                                <div class="product-desc-content">
+                                    <h3>User Information</h3>
+                                    {% for profile in myProfile_All %}
+                                    {% for x in myAppStore_All %}
+                                        {% if x.db_AppName == app.db_AppName and x.db_id_App == app.db_id_App and x.db_username == profile.db_username %}
+                                                
+                                    <p> <i class="product-gallery-item">
+                                        <img src="{{BASE_DIR}}/media/{{profile.db_photo}}" alt="product with model"  style="border: 0.1rem solid var(--white); border-radius: 3rem; display: true; width: 80px; height: 80px" >
+                                    </i>
+                                    <span> {{ profile.db_firstName }} {{ profile.db_lastName }} </span>
+                                        
+                                        <div class="">
+                                        <span>Username :</span>
+                                                <label> {{ profile.db_username }} </label>
+                                            </select>
+                                        </div><!-- End .select-custom -->
+
+                                        <div class="">
+                                            <span>email :</span>
+                                                    <label> {{ profile.db_email }} </label>
+                                                </select>
+                                            </div><!-- End .select-custom -->
+                                            
+                                            <div class="">
+                                                <span>Address :</span>
+                                                        <label> {{profile.db_address}}  </label>
+                                            </div>
+                                            <div class="">
+                                                <span>Date of birth :</span>
+                                                        <label> {{profile.db_date_DoB}}  </label>
+                                            </div><!-- End .select-custom -->
+                                    <!-- End .details-filter-row --></p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endfor %}
+                                    <h4>Application Information</h4>
+                                    <div class="product-desc-content">
+                                             
+                                        <p> <i class="product-gallery-item">
+                                            <img src="{{BASE_DIR}}/media/{{app.db_photoApp}}" alt="product with model"  style="border: 0.1rem solid var(--white); border-radius: 3rem; display: true; width: 80px; height: 80px" >
+                                        </i>
+                                        <span><b> Application : </b>
+                                            <label> {{app.db_AppName}} </label>
+                                         </span> 
+                                            <div class="">
+                                            <span>Publisher : </span>
+                                                    <label> {{ app.db_username }} </label>
+                                                
+                                            </div><!-- End .select-custom -->
+    
+                                            <div class="">
+                                                <span>Country :</span>
+                                                        <label> {{ app.db_country }} </label>
+                                                   
+                                                </div><!-- End .select-custom -->
+                                            
+                                                <div class="">
+                                                    <span>Ago :</span>
+                                                            <label> {{app.db_create_Date}}  </label>
+                                                </div><!-- End .select-custom -->
+                                        <!-- End .details-filter-row --></p>
+                                    </div>
+                                        
+                                </div><!-- End .product-desc-content -->
+
+                            </div><!-- .End .tab-pane -->
+                           
+                            <div class="tab-pane fade show active" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
+                                <div class="reviews">
+                                    <h3>Reviews ( 
+                                        
+                                        {% for x in myAppStore %}
+                                        {% for comment in count_comment %}
+                                        {% if x.db_id_App == app.db_id_App %}
+                                        
+                                        {% if forloop.last %}
+                                        {{forloop.counter}}
+
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endfor %}
+                                        )
+                                    </h3>
+
+
+                                    {% for comment in comment_send %}
+                                        {% for profile in myProfile_All %}
+                                        {% for x in myAppStore_All %}
+                                        {% if x.db_AppName == app.db_AppName and x.db_id_App == app.db_id_App and comment.username == profile.db_username %}
+                            
+                                    <div class="review">
+                                        
+                                        <div class="row no-gutters">
+                                            <div class="col-auto">
+                                                <p> <i class="product-gallery-item">
+                                                   
+                                                    <img src="{{BASE_DIR}}/media/{{profile.db_photo}}" alt="product with model"  style="border: 0.1rem solid var(--white); border-radius: 3rem; display: true; width: 80px; height: 80px" >
+                                                    
+                                                </i>
+                                                </p>
+                                                <h6><i></i></h6>
+                                                
+                                               
+                                            </div><!-- End .col -->
+                                            
+                                            <div class="col">
+                                                <h4>{{profile.db_firstName}} {{profile.db_lastName}}</h4>
+
+                                                <div class="review-content">
+                                                    <p>{{comment.text_comment}}</p>
+                                                </div><!-- End .review-content -->
+
+                                                <div class="review-action">
+                                                    {% if profile.db_username == comment.username  %}
+                                                
+                                                    <i class="icon-time"></i><span>{{comment.date_comment}}</span>
+                                                    {% endif %}
+                                                </div>
+                                            
+                                               <!-- <div class="review-action">
+                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
+                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
+                                                </div> End .review-action --> 
+                                            </div><!-- End .col-auto -->
+                                        </div><!-- End .row -->
+                                        
+                                    </div><!-- End .review -->
+                                    {% endif %}
+                                                    {% endfor %}
+                                                    {% endfor %}
+                                                    {% endfor %}
+
+
+                                    <form class=""  action="{% url 'comment' %}" method="POST" >
+                                        {% csrf_token %}
+                                            <input type="hidden" name="post_id" value="{{app.db_id_App}}">
+                                            <input type="hidden" name="post_AppName" value="{{app.db_AppName}}">
+                                            <input type="hidden" name="post_type" value="{{app.db_type}}">
+                                            <input type="hidden" name="post_Category" value="{{app.db_Category}}">
+                                            {% for post in myProfile %}
+                                            {% if forloop.first %}
+                                            <input type="hidden" name="post_username" value="{{post.db_username}}">
+                                            <h6 hidden>Subject: </h6>
+                                            <input  type="hidden" value="{{post.db_firstName}} {{post.db_lastName}}" type="text" placeholder="Subject (title your comment) Write here" class="form-control" name="post_Subject"  style="border: .1rem solid var(--green);" required>
+                                            
+                                            {% endif %}
+                                            {% endfor %}
+                                            <h6>Comment Text: </h6>
+                                            <input  class="form-control" placeholder="Comment Text ... Write here" type="text" name="post_Text_comment" style="border: .1rem solid var(--green);" required>
+                                            <button type="submit" class="btnLike" value="{{app.db_id_App}}" name="post_id" style="border: .1rem solid var(--black); border-radius: 3rem;"  alt="Comment" title="Comment" ><span>Comment</span></button>
+                                            
+                                        
+                                        </form>
+
+                                    
+                                </div><!-- End .reviews -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                        </div><!-- End .tab-content -->
+                    </div>
+                    </div><!-- End .product-details-tab -->
+<!--  no more --> </main>
+            </div><!-- End .owl-carousel -->
+
+                 
+                    {% endfor %}
+
+
+ {% include "layout-main/footer.html" %}  
+
+
+
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <!-- custom js file link  -->
+    {% load static %}
+        <!-- <script src="{% static 'product/js/script1.js' %}"></script> -->
+
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.hoverIntent.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static 'assets/js/superfish.min.js' %}"></script>
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap-input-spinner.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.elevateZoom.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap-input-spinner.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+        
+        <script src="{% static 'assets/js/main.js' %}"></script>
+        <script src="{% static 'assets/js/payment.js' %}"></script>
+    
+    </body>
+    </html>

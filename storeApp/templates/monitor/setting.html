@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- /home.html  29 Aug 2022 10:04:03 GMT -->
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+    <title>Lofin App Store -setting</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+      <!-- Favicon -->
+      {% load static %}
+      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+      <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+      <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+      <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+
+      <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+  
+   
+
+
+</head>
+<!-- <h2 class="title mb-4">  </h2>  -->
+
+<body>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    
+<!-- ----------------------------------------------- Header Era -------------------------------- -->
+{% include "layout-main/header.html" %} 
+<!-- ----------------------------------------------- Home Era -------------------------------- -->
+  
+<div class="bg-image pt-md-1 pb-md-1 pt-lg-1" >
+    <div class="container" bg-image="{% static 'images/login-bg1.jpg' %}">
+        
+        <div class="bg-image pt-md-1 pb-md-1 pt-lg-1" >
+            {% csrf_token %}
+            <div class="container" bg-image="{% static 'images/login-bg1.jpg' %}">
+            <div class="product product-7 text-center">
+                <h1 class="heading"><span>  Setting </span></h1>
+                        <div class="col-md-8">
+
+
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="email-tab" data-toggle="tab" href="#email" role="tab" aria-controls="email" aria-selected="true">Change Email</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="changePassword-tab" data-toggle="tab" href="#changePassword" role="tab" aria-controls="changePassword" aria-selected="false">Change Password</a>
+                                </li>
+                                <!--
+                                <li class="nav-item">
+                                    <a class="nav-link" id="resetPassword-tab" data-toggle="tab" href="#resetPassword" role="tab" aria-controls="resetPassword" aria-selected="false">Theme</a>
+                                </li>
+                                -->
+                                    <div class="container emp-profile">
+                                        
+                                           
+                                            <div class="row">
+                                                
+                                                <div class="col-md-8">
+                                                    {% if messages %}
+        
+                                                    {% for message in messages %}
+                                                        <div class="alert alert-info">
+                                                                {{ message }}
+                                                        </div>
+                                                    {% endfor %}
+                                                    
+                                                    {% endif %}
+                                                    <div class="tab-content profile-tab" id="myTabContent">
+                                                       {% include "monitor/change_Email.html" %} 
+                                                    </div>
+                                                  
+                                                        <div class="tab-pane fade" id="changePassword" role="tabpanel" aria-labelledby="changePassword-tab">
+                                                            {% include "monitor/change_Password.html" %} 
+                                                        </div>
+                                              <!--        
+                                                        <div class="tab-pane fade" id="resetPassword" role="tabpanel" aria-labelledby="resetPassword-tab">
+                                                            
+                                                                   
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Username</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input class="form-control" style="border-color: rgb(0, 0, 0);">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Old Password</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input class="form-control" style="border-color: rgb(0, 0, 0);">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>New Password</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input class="form-control" style="border-color: rgb(0, 0, 0);">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Confirm Password</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input class="form-control" style="border-color: rgb(0, 0, 0);">
+                                                                </div>
+                                                            </div>
+                                                                   
+                                                          
+                                                                    
+                                                        </div> -->  
+                                                    
+                                                    </div>
+                                                   
+                                    </div>
+                                    </div>
+                                    </div>
+                            </div>
+            <!-- ----------------------------------------------- Edit Era -------------------------------- -->
+        
+                            </div><!-- End. myTabContent -->
+                        </div><!-- col-md-8 -->
+        
+    </div>
+</div>
+    {% endif %}
+
+        {% include "layout-main/footer.html" %}  
+<!-- /register.html  22 Aug 2022 10:04:03 GMT -->
+
+</body>
+</html>

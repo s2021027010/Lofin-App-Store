@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- /home.html  29 Aug 2022 10:04:03 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title  name="title">Lofin App Store -
+        {% block title %}home{% endblock %}</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Favicon -->
+    {% load static %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+
+    
+
+
+</head>
+<!-- <h2 class="title mb-4">  </h2>  -->
+
+<body>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    
+<!-- ----------------------------------------------- Header Era -------------------------------- -->
+{% include "layout-main/header.html" %} 
+
+
+<!-- ----------------------------------------------- Home Era -------------------------------- -->
+
+{% include "layout-main/GridView.html" %} 
+
+
+    {% endif %}
+
+
+        
+<!-- ----------------------------------------------- footer Era -------------------------------- -->
+    {% include "layout-main/footer.html" %}   
+<!-- /register.html  22 Aug 2022 10:04:03 GMT -->
+
+</body>
+</html>

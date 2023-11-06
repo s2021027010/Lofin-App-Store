@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- /header.html  29 Aug 2022 10:04:03 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+    <title>Lofin App Store -header</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+      <!-- Favicon -->
+      {% load static %}
+      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+      <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+      <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+      <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+
+      <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+  
+   
+  
+      <!-- Plugins CSS File -->
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+
+      
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+     
+      
+
+    <link rel="stylesheet" href="{% static 'product/js/style.css' %}">
+    <link rel="stylesheet" href="{% static 'product/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/search.css' %}">
+      <link rel="stylesheet" href="{% static 'css/searchbootstrap.css' %}">
+      <link rel="stylesheet" href="{% static 'css/dropdowncss.css' %}">
+      
+      
+  
+
+
+
+     
+
+</head>
+<body>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+<!-- ----------------------------------------------- Header Era -------------------------------- -->
+<div  style="background-color: rgb(216, 213, 213);" >
+    
+   
+    <header class="header" style="background-color: rgb(216, 213, 213);">
+        
+        
+            <div class="container" style="background-color: rgb(216, 213, 213);">
+                <div class="header-left">
+                    <h7><a href="" class="logo">
+                        <img src="{% static 'images/logo.png' %}" alt="Lofin App" ></img>
+                        <span>App Store</span></a>
+                    </h7>
+                    
+                </div><!-- End .header-left --> 
+                <div class="header-right">
+                    
+                    <ul class="top-menu header-left" >
+                        
+                            <ul>
+                                <div class="header-right">
+                                    <div class="header-search">
+    
+
+                                        <form class="txtSearch"  action="{% url 'search' %}" method="get" style="margin:auto;max-width:300px;  right: 5px;">
+                                            <input type="text" class="form-control" value="" placeholder="Search..." name="search">
+                                            <button type="submit"><i class="icon-search"></i></button>
+                                          </form>
+                                    </div><!-- End .header-search -->
+                                </div>
+
+
+
+                                
+                                <div class="header-right">
+                                <div class="dropdown cart-dropdown">
+                                <li><a href="#"><i class="icon-shopping-cart"></i>Wishlist
+
+                                    
+                                    <a href="#" class="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                        <span class="cart-count">
+                                             {% for app_count in wish_cart %}
+                                            {% if forloop.last %}
+                                            {{ forloop.counter }}
+                                            {% endif %}
+                                            {% endfor %}
+                                        </span>
+                                    </a>
+                                </a>
+        
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <div class="dropdown-cart-products">
+                                    {% for app in wish_cart %}
+                                            {% for ap in myAppStore_All %}
+                                                {% if app.value_wish == "Wish" and app.username == app.username  and ap.db_type == app.type_wish and ap.db_Category == app.Category_wish and ap.db_AppName == app.AppStore  %}
+                                                   
+                                            <div class="product">
+                                                <div class="product-cart-details">
+                                                    <h4 class="product-title">
+                                                    
+                                                        <a href="{{BASE_DIR}}/fullView/{{ap.db_id_App}}">
+                                                            
+                                                                {{ap.db_AppName}}</a>
+                                                    </h4>
+        
+                                                    <span class="cart-product-info">
+                                                        <span class="cart-product-qty"></span>
+                                                        {{ap.db_type}}
+                                                    </span>
+                                                </div><!-- End .product-cart-details -->
+        
+                                                <figure class="product-image-container">
+                                                    <a href="{{BASE_DIR}}/fullView/{{ap.db_id_App}}" class="product-image">
+                                                        
+                                                        <img src="{{BASE_DIR}}/media/{{ap.db_photoApp}}" alt="product">
+                                                        
+                                                    </a>
+                                                </figure>
+                                                <form class=""  action="{% url 'wishlist' %}" method="POST" >
+                                                    {% csrf_token %}
+                                                       
+                                                        <input type="hidden" name="post_id" value="{{ap.db_id_App}}">
+                                                        <input type="hidden" name="post_AppName" value="{{ap.db_AppName}}">
+                                                        <input type="hidden" name="post_type" value="{{ap.db_type}}">
+                                                        <input type="hidden" name="post_Category" value="{{ap.db_Category}}">
+                                                        
+                                                       
+                                                             
+                                                        <input type="hidden" name="post_username" value="{{app.username}}">
+                                                        
+                                                            <button type="submit"   value="{{ap.db_id_App}}" name="post_id"  style="border:0rem solid var(--white);border-color:#fff; background-color:#fff; position: absolute;top: 37px;"  alt="Wishlist" title="Wishlist" ><i class="icon-close"></i></button> 
+                                                           <!-- <button type="submit"   value="{{ap.db_id_App}}" name="post_id"  class="btn-remove" title="Remove Product"><i class="icon-close"></i></button> -->
+                                                        
+                                                    </form>
+                                                <!-- <a href="{% url 'wishlist' %}"  action="{% url 'wishlist' %}"  value="{{ap.db_id_App}}" name="post_id"  class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>  -->
+                                            </div><!-- End .product -->
+                                                            
+                                                        {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+        
+                                          
+                                        </div><!-- End .cart-product -->
+        
+                                        <div class="dropdown-cart-total">
+                                            <span>Total</span>
+        
+                                            <span class="cart-total-price">{% for app_count in wish_cart %}
+                                                {% if forloop.last %}
+                                                {{ forloop.counter }}
+                                                {% endif %}
+                                                {% endfor %}</span>
+                                        </div><!-- End .dropdown-cart-total -->
+        
+                                        <div class="dropdown-cart-action">
+                                            <a href="{% url 'wishlistView' %}" class="btn btn-primary">View Wishlist</a>
+                                        </div><!-- End .dropdown-cart-total -->
+                                    </div><!-- End .dropdown-menu -->
+                                </div><!-- End .cart-dropdown -->
+                            </div><!-- End .header-right -->
+                            
+
+                            
+                                </li>
+                                
+                                <li class="header-left">
+                                    <ul> 
+                                        {% for profile in myProfile %}
+                                         
+                                       <span title="{{profile.db_username}}" > 
+                                       <div class="col-auto">
+                                            <img src="{{BASE_DIR}}/media/{{profile.db_photo}}" alt="{{profile.username}}"  style="border: 0.1rem solid var(--white); border-radius: 3rem; display: true; width: 50px; height: 50px" >
+                                           <!-- <span title="{{profile.db_username}}">{{profile.db_username}}</span> -->
+                                        </i>
+                                        <h6><i></i></h6>
+                                        
+                                       
+                                    </div><!-- End .col -->
+                                </span>
+                                      {% endfor %}
+                                    </ul>
+                                    </li>
+                                <li>
+                                
+                               
+                            </ul>
+                        </li>
+                    </ul><!-- End .top-menu -->
+                    
+                </div><!-- End .header-right -->
+
+            </div>
+  
+            
+        <div class="container" style="background-color: rgba(163, 153, 153, 0.568); ">
+            <div class="header-left">
+                <ul class="top-menu header-left">
+                    
+                        <ul>
+                            
+                            <li>
+                                <a href="#"><span class=""></span> </a>
+                            </li>
+                                   
+                            <li>
+                                <a href="{% url 'home' %}"   class="headbtn" style="color: rgb(3, 3, 3);"><span class="icon-home"></span> Home</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'gamePage' %}"   class="headbtn"style="color: rgb(3, 3, 3);" ><span class="icon-fantasy-flight-games"></span> Game</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'socialPage' %}"  class="headbtn" style="color: rgb(3, 3, 3);"><span class="icon-weixin"></span> Social</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'sportPage' %}"  class="headbtn" style="color: rgb(3, 3, 3);"><span class="icon-cc-discover"></span> Sport</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'topPage' %}"  class="headbtn" style="color: rgb(3, 3, 3);"><span class="icon-qq"></span> Top</a>
+                            </li>
+    
+                                </ul>
+                                <div class="header-left">
+                                   
+
+                                    
+                                    
+
+                                    <div class="header-right">
+
+                                        <div class="header-dropdown" style="color: #fff; position: absolute; left: 113rem;top: 0rem;">
+                                            <div href="" style="color: #fff;"><div class="icon-bars"></div></div> 
+                                            <div class="header-menu" style="border-color: #fff; background-color: rgb(0, 0, 0);">
+                                                <ul>
+                                                    <li class="headbtn" style="border-color: rgb(0, 0, 0);">
+                                                        <a href="{% url 'profile' %}" style="color: #fff;"><span class="icon-user"></span> Profile</a>
+                                                    </li>
+                                                </ul>
+                                                <ul>
+                                                    <li class="headbtn"  style="border-color: rgb(0, 0, 0);">
+                                                    <a href="{% url 'status' %}" style="color: #fff;"><span class="icon-heart-o"></span> Status</a>
+                                                    </li>
+                                                </ul>
+                                                <ul>
+                                                    <li class="headbtn"  style="border-color: rgb(0, 0, 0);" >
+                                                    <a href="{% url 'publish' %}" style="color: #fff;"><span class="icon-play"></span> Publish App</a>
+                                                    </li>
+                                                </ul>
+                                                <ul>
+                                                    <li class="headbtn"  style="border-color: rgb(0, 0, 0);" >
+                                                        <a href="{% url 'setting' %}" style="color: #fff;"><span class="icon-cog"></span> Settting</a>
+                                                    </li> 
+                                                </ul>
+                                                <ul>
+                                                    
+                                                    <li class="headbtn"  style="border-color: rgb(0, 0, 0);" >
+                                                        <a href="{% url 'accountManage' %}" style="color: #fff;"><span class="icon-edit"></span> Account Manager</a>
+                                                        </li>
+                                                </ul>
+                                                <ul>
+                                                    
+                                                    <li class="headbtn"  >
+                                                        <a href="{% url 'logout' %}" style="color: #fff;"><span class="icon-user"></span> LogOut</a>
+                                                        </li>
+                                                </ul>
+                                                   
+                                                    
+                                            </div><!-- End .header-menu -->
+                                        </div><!-- End .header-dropdown -->
+                                    </div><!-- End .header-left -->
+                
+                               
+                               
+                                    
+                                      
+                                  </li>
+                            </div>
+                                </div><!-- End .header-search -->
+                            </div>
+                         
+        </header>
+        </div>
+   {% endif %}
+   
+                
+
+<!-- ----------------------------------------------- Main Js File -------------------------------- -->
+{% load static %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.hoverIntent.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/superfish.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    
+    <!-- Main JS File -->
+    
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/Navpopper.js' %}"></script>
+    <script src="{% static 'js/Navbootstrap.min.js' %}"></script>
+    <script src="{% static 'js/Navmain.js' %}"></script>
+    <script src="{% static 'js/dropdown.min.js' %}"></script>
+ 
+
+<!-- Lofin/header.html  22 Nov 2019 10:04:03 GMT -->
+
+</body>
+</html>

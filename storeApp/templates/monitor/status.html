@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- /home.html  29 Aug 2022 10:04:03 GMT -->
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+    <title>Lofin App Store -status</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+      <!-- Favicon -->
+      {% load static %}
+      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+      <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+      <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+      <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+
+      <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+  
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'product/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'css/search.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+  
+      <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/nouislider.css' %}">
+
+
+      <script src="{% static 'assets/transfer.js' %}" defer></script>
+
+      <script src="https://js.stripe.com/v3/"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+   
+</head>
+<!-- <h2 class="title mb-4">  </h2>  -->
+
+<body>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    
+<!-- ----------------------------------------------- Header Era -------------------------------- -->
+{% include "layout-main/header.html" %} 
+<!-- ----------------------------------------------- Home Era -------------------------------- -->
+
+<div class="bg-image pt-md-1 pb-md-1 pt-lg-1"  text-center>
+    <div class="container" bg-image="{% static 'images/login-bg.jpg' %}"  text-center>
+
+        <h1 class="heading"><span>  Status </span></h1>
+     
+     
+        <label class="viewBox"><span><b>Earn Amount :</b> 
+      {% for app in price  %}
+        {% if forloop.last %}
+             {{app.db_price}}
+          
+        {% endif %} 
+
+    {% endfor %}
+   
+       </span></label>
+
+      
+
+    
+    <label class="viewBox"><span><b>Published App : </b>
+      {% for x in myAppStore %}
+    {% if forloop.last %}
+      {{ forloop.counter }} 
+      {% endif %}
+      {% endfor %}
+    </span></label>
+   
+       
+      </br>
+   
+      <label class="viewBox"><span><b>Total Likes : </b>
+        {% for x in myLike %}
+        {% if forloop.last %}
+          {{ forloop.counter }}
+          {% endif %}
+          {% endfor %}
+      </span></label>
+        
+     
+      <label class="viewBox"><span><b>Comments :</b>
+        {% for x in myComment %}
+        {% if forloop.last %}
+          {{ forloop.counter }}
+          {% endif %}
+          {% endfor %} </span></label>
+    </br>
+   <!-- <button type="submit" href="" class="btnLike" ><div  title="Withdrawal">Withdrawal</div></a></button>
+-->
+
+{% block content %}
+{% if messages %}
+
+{% for message in messages %}
+
+<div class="alert alert-info" >
+{{ message }}
+</div>
+
+{% endfor %}
+
+{% endif %}
+<div class="border-color" style="background-color: gainsboro;">
+<div class="container" align="center">
+  <div class="row">
+      <div class="col-lg-12">
+    <form class=""  action="{% url 'transfer' %}" method="POST" text-center>
+        {% csrf_token %}
+       
+          <div class="col-md-3">
+            <label text-left>Amount *</label>
+           
+              <input type="text"  maxlength="" class="form-control" id="input_amount"   name="input_amount" placeholder="Amount"  required>
+             
+            </div>
+            <div class="col-md-3">
+              <label text-left>Currency *</label>
+             
+              <div name="input_currency" style=" padding-top: 10px">
+                <select id="options"  name="input_currency"  class="selectdata form-control custom-select" required>
+                    <option  value="" disabled selected>Select an option</option>
+                    <option  name="input_currency" value="usd">Usd - United State Doller</option>
+                    <option  name="input_currency" value="usd">Usd - United State Doller</option>
+                    <option  name="input_currency" value="usd">Usd - United State Doller</option>
+                  </select>
+              </div>
+            </div>
+            <!--
+            <div class="col-md-3">
+              <label hidden text-left>Destination *</label>
+             
+                <input type="text" hidden class="form-control" id="input_dest"   name="input_dest" placeholder="Destination"  required>
+               
+              </div>
+              -->
+        <button type="submit" id="submit" class="btnLike" value="Withdrawal"  ><span>Withdrawal</span></button>
+
+        </form>
+
+</div></div></div>
+</div>
+{% endblock %}
+
+    </div>
+
+  </br>
+ 
+  <div class="container">
+    <div class="border-color" style="background-color: gainsboro;">
+      <div class="row">
+        <div class="col-lg-9">
+            <h3>Withdrawal History</h3>
+              <table class="table table-cart table-mobile">
+                  <thead style="background-color: azure;">
+                      <tr>
+                          <th class="col-lg-1">Username</th>
+                          <th class="col-lg-1">Amount </th>
+                          <th class="col-lg-1">Type</th>
+                          <th class="col-lg-1">Date</th>
+                      </tr>
+                  </thead>
+                  </table>
+                       
+                </div>
+      </div><!-- End .row -->
+                  {% for trans in Transuct %}
+                  <div class="container" >
+                    <div class="row"  style="border-color:#d1bcbc ;">
+                      <div class="col-lg-9">
+                            <table class="table table-cart table-mobile">
+                                <thead >
+                                    <tr style="background-color: rgb(67, 116, 71);">
+                                      <th class="col-lg-1" style="color: rgb(255, 255, 254);">{{trans.username_trans}}</th>
+                                      <th class="col-lg-1"  style="color: rgb(255, 255, 254);">{{trans.price}}</th>
+                                      <th class="col-lg-1"  style="color:  rgb(255, 255, 254);">{{trans.type}}</th>
+                                      <th class="col-lg-1"  style="color:  rgb(255, 255, 254);">{{trans.date}}</th>
+                                     
+                                    </tr>
+                    </thead>
+                    </table>
+                  </div>
+                  </div>
+                  </div>
+                  {% endfor %}
+                </div>
+  </div>
+   
+
+<!--    *************************************************************  -->
+  </br>
+ 
+      <div class="container">
+        <div class="border-color" style="background-color: gainsboro;">
+          <div class="row">
+              <div class="col-lg-9">
+                <h3>Earn Amount History</h3>
+                  <table class="table table-cart table-mobile">
+                      <thead style="background-color: azure;">
+                          <tr>
+                              <th class="col-lg-1">Publish App</th>
+                              <th class="col-lg-1">Publisher Username </th>
+                              <th class="col-lg-1">Amount Paid By</th>
+                              <th class="col-lg-1">Price</th>
+                          </tr>
+                      </thead>
+                      </table>
+                           
+
+              </div><!-- End .col-lg-9 -->
+              
+          </div><!-- End .row -->
+                      {% for app in myAmount %}
+                      <div class="container" >
+                        <div class="row"  style="border-color:#d1bcbc ;">
+                            <div class="col-lg-9">
+                                <table class="table table-cart table-mobile">
+                                    <thead >
+                                        <tr style="background-color: rgb(67, 116, 71);">
+                                          <th  class="col-lg-1" style="color: rgb(255, 255, 254);">{{app.db_AppName}}</th>
+                                          <th  class="col-lg-1" style="color: rgb(255, 255, 254);">{{app.db_username_Publisher}}</th>
+                                          <th class="col-lg-1" style="color:  rgb(255, 255, 254);">{{app.db_username_PaidBy}}</th>
+                                          <th class="col-lg-1" style="color:  rgb(255, 255, 254);">{{app.db_price}}</th>
+                                         
+                                        </tr>
+                        </thead>
+                        </table>
+                      </div>
+                      </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+      </div>
+    </div>
+<!--    ************************************************************** -->
+
+   {% endif %}
+
+          
+ 
+
+    {% include "layout-main/footer.html" %}
+<!-- /register.html  22 Aug 2022 10:04:03 GMT -->
+
+
+
+
+
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+<!-- custom js file link  -->
+{% load static %}
+    <!-- <script src="{% static 'product/js/script1.js' %}"></script> -->
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.hoverIntent.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/superfish.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap-input-spinner.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.elevateZoom.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap-input-spinner.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+    
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/payment.js' %}"></script>
+
+    <script src="{% static 'assets/transfer.js' %}"></script>
+
+</body>
+</html>

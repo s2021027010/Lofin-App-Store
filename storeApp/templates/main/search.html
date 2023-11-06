@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- /home.html  29 Aug 2022 10:04:03 GMT -->
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+    <title name="search">Lofin App Store -
+        {% block title %}search
+    {% endblock %}</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+      <!-- Favicon -->
+      {% load static %}
+      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+      <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+      <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+      <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+
+      <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+  
+   
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'product/css/searchstylebtn.css' %}">
+
+
+</head>
+<!-- <h2 class="title mb-4">  </h2>  -->
+
+<body>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    
+<!-- ----------------------------------------------- Header Era -------------------------------- -->
+{% include "layout-main/header.html" %} 
+<!-- ----------------------------------------------- Home Era -------------------------------- -->
+{% load static %}
+
+    <h2 class="" style="position:relative; ;margin-top: 2%; left: 4rem; ">Search Result <a class="icon-search">  <i>"{{request.GET.search}}"</i></a></h2><!-- End .title text-center -->
+    
+    <div class="border-color" style="background-color: gainsboro;">
+        <form  method="get"  enctype="multipart/form-data">
+            <div class="row text-center">
+                <div class="tcolumn">
+                    <h5>Search Item</h5>
+                    
+                </div>
+                <div class="tcolumn">
+                    <h5>App Name</h5>
+                    
+                </div>
+                <div class="tcolumn" >
+                    <h5>Use For</h5>
+                    
+                </div>
+                <div class="tcolumn" >
+                    <h5>Price</h5>
+                    
+                </div>
+               
+                <div class="tcolumn " >
+                    <h5 style="position: absolute; left: 3rem">Like</h5>
+                    
+                </div>
+               
+                
+               
+            </div>
+        
+            <div class="rowcol">
+
+            </div>
+           {% for app in myAppStore_search %}
+        <div class="rowcol  text-center">
+            <div class="column" >
+                <p>
+                    <a href="#">
+                        <img src="{{BASE_DIR}}/media/{{app.db_photoApp}}"  style="display: true; width: 70px; height: 60px;margin-top: -5%;"  alt="App image">
+                    </a>
+                </p>
+                
+            </div>
+           
+            <div class="column">
+                <p> {{app.db_AppName}}</p>
+                
+            </div>
+            <div class="column">
+                <p>{{app.db_link_type}}</p>
+                
+            </div>
+            <div class="column">
+                <p>($ {{app.db_price}})</p>
+                
+            </div>
+             <div class="column">
+                <p> <div class="stars"  style="position: absolute; top: 1px;">
+                    <div class="header-search">
+                        <!--<form class=""  action="{% url 'like' %}" method="get" ></form> -->
+                        <form class=""  action="{% url 'like' %}" method="get" >
+                           
+                            <input type="hidden" name="post_id" value="{{app.db_id_App}}">
+                            <input type="hidden" name="post_AppName" value="{{app.db_AppName}}">
+                            
+                            {% for post in myProfile %}
+                                    {% if forloop.first %}
+                                    <input type="hidden" name="post_username" value="{{post.db_username}}">
+                                    {% endif %}
+                            {% endfor %}
+            
+                            {% if app.db_like.all.count >= 0 and app.db_like.all.count <= 999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="btn-expandable">{{app.db_like.all.count|get_digit:""}} </span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 1000 and app.db_like.all.count <= 9999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"4"}}.{{app.db_like.all.count|get_digit:"3"}}{{app.db_like.all.count|get_digit:"2"}} K</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 10000 and app.db_like.all.count <= 99999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"5"}}{{app.db_like.all.count|get_digit:"4"}}.{{app.db_like.all.count|get_digit:"3"}} K</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 100000 and app.db_like.all.count <= 999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"6"}}{{app.db_like.all.count|get_digit:"5"}}{{app.db_like.all.count|get_digit:"4"}} K</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 1000000 and app.db_like.all.count <= 9999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"7"}}.{{app.db_like.all.count|get_digit:"6"}}{{app.db_like.all.count|get_digit:"5"}} M</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 10000000 and app.db_like.all.count <= 99999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"8"}}{{app.db_like.all.count|get_digit:"7"}}.{{app.db_like.all.count|get_digit:"6"}} M</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 100000000 and app.db_like.all.count <= 999999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"9"}}{{app.db_like.all.count|get_digit:"8"}}{{app.db_like.all.count|get_digit:"7"}} M</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 1000000000 and app.db_like.all.count <= 9999999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"10"}}.{{app.db_like.all.count|get_digit:"9"}}{{app.db_like.all.count|get_digit:"8"}} B</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 10000000000 and app.db_like.all.count <= 99999999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"11"}}{{app.db_like.all.count|get_digit:"10"}}.{{app.db_like.all.count|get_digit:"9"}} B</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 100000000000 and app.db_like.all.count <= 999999999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"12"}}{{app.db_like.all.count|get_digit:"11"}}{{app.db_like.all.count|get_digit:"10"}} B</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 1000000000000 and app.db_like.all.count <= 9999999999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"13"}}.{{app.db_like.all.count|get_digit:"12"}}{{app.db_like.all.count|get_digit:"11"}} T</span></i>
+                           
+                            {% endif %}
+
+                            {% if app.db_like.all.count >= 10000000000000 and app.db_like.all.count <= 99999999999999 %}
+                            
+                            <i type="submit"   alt="Like" title="Like" class="searchbtnLike icon-heart"><span class="price   btn-expandable">{{app.db_like.all.count|get_digit:"14"}}{{app.db_like.all.count|get_digit:"13"}}.{{app.db_like.all.count|get_digit:"12"}} T</span></i>
+                           
+                            {% endif %}
+                        
+                        </form>
+                    </div>
+                </div></p>
+                
+            </div>
+            <div class="tcolumn">
+
+                <a href="{{BASE_DIR}}/fullView/{{app.db_id_App}}"  style="margin-top: -3.7%;" class="btn btn-outline-primary-1 "><span style="font-size: 2em;">Install</span> <i class="icon-long-arrow-left"><label> {{ app.db_link.size|filesizeformat }}</label> </i></a>
+            </div>
+        </div> 
+        
+           
+
+                                    
+            {% endfor %}
+                   
+
+        </form>
+  </div>
+
+
+{% endif %}
+    
+
+        
+<!-- /register.html  22 Aug 2022 10:04:03 GMT -->
+
+
+</body>
+</html>

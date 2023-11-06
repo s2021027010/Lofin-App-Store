@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- /register.html  29 Aug 2022 10:04:03 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lofin App Store -update_Profile</title>
+    <meta name="keywords" content="Application Store, download, installed">
+    <meta name="description" content="Lofin - Web App Store">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Lofin">
+    <meta name="application-name" content="Lofin">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Favicon -->
+    {% load static %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+    <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+    <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+    <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+
+
+
+    <!-- Plugins CSS File -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profilebootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pbootstrap.min.css' %}"  rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<!-- ----------------------------------------------- update_Profile Era-------------------------------- -->
+
+
+<div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
+    {% if user.is_authenticated %}
+    
+        {% for profile in myProfile %}
+             {% if forloop.first %}
+
+        <div class="container emp-profile">
+            <form action="update_Profile/{{profile.id}}" method="post"  enctype="multipart/form-data" >
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img id="input_imageP"  src="{{BASE_DIR}}/media/media/Profile/defaultDP.png" style="display: true; width: 250px; height: 200px" alt="Profile Picture" />
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div hidden="true" class="file btn btn-lg btn-primary"  style="display: true; width: 50px; height: 50px">
+                                        
+                                        <input hidden="true" type="file"  name="input_imageP" onchange="loadFile(event)" >
+                                        
+                                    </div>
+                                    <div class="file btn btn-lg btn-primary"  style="display: true; width: 50px; height: 50px">
+                                        <p><label for="file"  style="cursor: pointer; color: aliceblue;">Upload Photo</p>
+                                        <input type="file"  accept="image/*"  id="file"  onchange="loadFile(event)"  value="media/Profile/defaultDP.png" name="input_imageP"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        {{profile.db_firstName}} {{profile.db_lastName}}
+                                    </h5>
+                                    <h6>
+                                        {{profile.db_email}}
+                                    </h6>
+                                    
+                                    
+                                        {% for app in myAppStore %}
+                                        {% if forloop.last >= 1 %} 
+                                    <p class="proile-rating">PUBLISH Apps: <span>{{ forloop.counter }}</span></p>
+                                    
+                                        {% endif %}
+                                        {% endfor %} 
+                                    
+                                   
+                                        {% for app in myAppStore %}
+                                        {% if forloop.last > forloop.last %} 
+                                    <p class="proile-rating">PUBLISH Apps: <span>0</span></p>
+                                        {% endif %}
+                                        {% endfor %}
+                                   
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="edithome-tab" data-toggle="tab" href="#edithome" role="tab" aria-controls="edithome" aria-selected="true">About</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="edithome" role="tabpanel" aria-labelledby="edithome-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Id</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="username"  value="{{profile.db_username}}" class="form-control" readonly="true"  id="username" name="username"  aria-describedby="emailHelp" placeholder="abc123"  required></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>First Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="text"  value="{{profile.db_firstName}}" class="form-control" id="input_firstName" name="input_firstName" placeholder="First Name" required> </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Last Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="text"  value="{{profile.db_lastName}}" class="form-control" id="input_lastName" name="input_lastName" placeholder="Last Name" required> </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="email"  value="{{profile.db_email}}" class="form-control" id="input_email" readonly="true"   aria-describedby="emailHelp" name="email" placeholder="abc123@example.com"  required></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="text" value="{{profile.db_phoneNumber}}" placeholder="+92-xxx-xxxxxxx" class="form-control" id="input_phoneNumber" name="input_phoneNumber" required>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Country</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input type="text" value="{{profile.db_address}}" class="form-control" id="input_address" name="input_address" placeholder="Country" required>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Date of Birth</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input readonly type="text" value="{{profile.db_date_DoB}}"  class="form-control" id="input_date_DoB" name="input_date_DoB" placeholder="Date of Birth" ></p>
+                                                </p>
+                                            </div>
+                                        </div>
+                            
+                            
+                            <div class="row">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="editprofile-tab" data-toggle="tab" href="#editprofile" role="tab" aria-controls="editprofile" aria-selected="false"><b>Timeline</b></a>
+                                    </li>
+                            </ul>
+                            </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Experience</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><input type="text" class="form-control"  id="exper" name="input_exper" placeholder="Experience" value="{{profile.db_exper}}" ></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Hourly Rate</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><input type="text"  value="{{profile.db_hourly}}" class="form-control" id="input_hourly" name="input_hourly" placeholder="Hourly Rate" > </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {% with flage=0 %}
+                                        {% if app is not myAppStore %}
+                                        
+                                        {% for app in myAppStore %}
+                                        {% with flage=1 %}
+                                        {% if forloop.last %}
+                                        <label>Total Projects</label>
+                                        {% endif %}
+                                    
+                                        {% if flage == 0 %}
+                                        <label>Total Projects</label>
+                                        {% endif %}
+                                        {% endwith %}
+                                        {% endfor %}
+                                        
+                                        {% endif %}
+                                        {% endwith %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {% with flage=0 %}
+                                        {% if app is not myAppStore %}
+                                        
+                                        {% for app in myAppStore %}
+                                        {% with flage=1 %}
+                                        {% if forloop.last %}
+                                        
+                                        <p><input type="text"  readonly  value="{{forloop.counter}}" class="form-control" id="input_Tproject" name="input_Tproject" placeholder=" Projects" > </p>
+                                        {% endif %}
+                                    
+                                        {% if flage == 0 %}
+                                        <p><input type="text"  readonly  value="0" class="form-control" id="input_Tproject" name="input_Tproject" placeholder=" Projects" > </p>
+                                        {% endif %}
+                                        {% endwith %}
+                                        {% endfor %}
+                                        
+                                        {% endif %}
+                                        {% endwith %}
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Language Speak</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><input type="language" value="{{profile.db_speak}}" class="form-control" id="input_speak"  name="input_speak" placeholder="Language" ></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Availability</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><input type="text" value="{{profile.db_available}}" placeholder="Availability" class="form-control" id="input_available" name="input_available" >
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Your Bio</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><textarea aria-valuemax="800" type="text" value="{{profile.db_bio}}" style="height: 130px;"  value="{{profile.db_bio}}" class="form-control" id="input_bio" name="input_bio" placeholder="Your Bio Detail" >{{profile.db_bio}}</textarea>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-outline-primary-2 text-center">
+                                        <span>Save</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            </form>           
+        </div>
+        {% endif %}
+        {% endfor %}
+
+    {% endif %}
+</div><!-- End. Edit -->
+
+</form>
+  
+<!-- ----------------------------------------------- Main Js File Era-------------------------------- -->
+{% load static %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.hoverIntent.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/superfish.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!-- Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/imgShow.js' %}"></script>
+
+
+
+<!-- /login.html  22 Aug 2022 10:04:03 GMT -->
+
+</body>
+</html>
