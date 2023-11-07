@@ -20,8 +20,6 @@ from . import views
 from .login import *
 from . import login
 
-
-
 from .signUp import *
 from . import signUp
 
