@@ -147,8 +147,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 's2021027010@umt.edu.pk' # 'LofinApp_Project.demo.django.login@gmail.com' 
-EMAIL_HOST_PASSWORD = 'Arshad@2020'
+EMAIL_HOST_USER = 'example@gmail.com'  
+EMAIL_HOST_PASSWORD = 'yourOwnPassword'
 
 
 STRIPE_PUBLIC_KEY='pk_test_51MDkyQDUzRcdw0ai84xqLsFylb0EVMCnP4Qv9y3NeW219gwQifI696lrqejOacOFEVO5bbIa3Zxd9bi5k7ON0sc200KlqO6jNm'
