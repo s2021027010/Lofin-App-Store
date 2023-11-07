@@ -1,3 +1,4 @@
-user: lofin92110
-pass : umt@2020
-email: s2021027010@umt.edu.pk
+user: username
+pass : your password
+email: example@gmail.com
+(you create your own superuser in python/django run command or shill.)
