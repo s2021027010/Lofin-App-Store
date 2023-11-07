@@ -17,7 +17,6 @@ from django.contrib.auth.decorators import login_required
 
 from .models import *
 
-
 import sys , os
 from .views import *
 from . import views
