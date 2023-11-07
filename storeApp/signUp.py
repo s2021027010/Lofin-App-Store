@@ -24,13 +24,7 @@ from . tokens import generate_token
 
 from .login import *
 from . import login
-
-
-
-# Create your views here.
-
-
-
+ 
 
 def register(request):
     mypersonal = db_Profile.objects.all().values()
